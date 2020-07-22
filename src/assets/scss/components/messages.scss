@@ -86,3 +86,8 @@
     }
   }
 }
+@media only screen and (max-width: 768px) {
+  .message-list-container {
+    height: calc(100vh - 200px);
+  }
+}
