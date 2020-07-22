@@ -11,6 +11,6 @@ export const MESSAGE_TYPES = {
 
 /** @const @enum {Object<string,Symbol> */
 export const MESSAGE_DISPATCHER_ACTIONS = {
-  SEND_MESSAGE: Symbol(),
+  PUSH_MESSAGE: Symbol(),
   SET_MESSAGE_DATA: Symbol(),
 };

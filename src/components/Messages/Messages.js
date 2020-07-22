@@ -1,6 +1,8 @@
-import React, { useMemo, useEffect, useReducer } from 'react'
+import React, { useMemo, useEffect, useReducer, useCallback } from 'react'
 
+import Api from '../../utils/Api';
 import withMessages from './withMessages';
+import { MESSAGE_TYPES } from './constants';
 import messageLocalStore from './messageLocalStore';
 import { messageReducer, messagesInitialState } from './store';
 import { MessageContext, MESSAGE_DISPATCHER_ACTIONS } from './constants';
@@ -14,16 +16,30 @@ const MessageList = ({ children }) => {
     messagesInitialState
   );
 
+  const updateStores = useCallback(payload => {
+    messageLocalStore.push(payload);
+
+    messageContextDispatch({
+      type: MESSAGE_DISPATCHER_ACTIONS.PUSH_MESSAGE,
+      payload,
+    });
+  }, [])
+
   /** @const {Object<string, Function>} */
   const messageContextDispatchers = useMemo(() => {
     return {
       sendMessage: (payload) => {
-        messageLocalStore.push(payload);
+        updateStores(payload);
 
-        messageContextDispatch({
-          type: MESSAGE_DISPATCHER_ACTIONS.SEND_MESSAGE,
-          payload,
-        });
+        Api.sendNewMessage(payload.message)
+          .then(result => {
+            const receivedMessagePayload = {
+              type: MESSAGE_TYPES.RECEIVED,
+              message: result.title,
+            };
+
+            updateStores(receivedMessagePayload);
+          });
       }
     };
   }, [messageContextDispatch]);

@@ -12,7 +12,7 @@ export const messagesInitialState = {
  * @return {Object<string, ?>}
  */
 export function messageReducer(state, action) {
-  if (action.type === MESSAGE_DISPATCHER_ACTIONS.SEND_MESSAGE) {
+  if (action.type === MESSAGE_DISPATCHER_ACTIONS.PUSH_MESSAGE) {
     const messages = state.messages;
     messages.push(action.payload);
 
