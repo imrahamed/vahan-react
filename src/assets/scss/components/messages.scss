@@ -1,0 +1,88 @@
+@import '../variables/variables.scss';
+
+.message-list-container {
+  display: flex;
+  height: calc(100vh - 132px);
+  overflow: auto;
+  flex-direction: column-reverse;
+  background-image: url("https://jobs.vahan.co/static/media/chatBG_cropped_min.53ac0bc8.jpg");
+
+  > .MuiGrid-container {
+    padding-bottom: 3vh;
+  }
+
+  .add-message {
+    &-form {
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      width: 100%;
+      padding: $base-padding*4;
+      align-items: center;
+      background-color: $grey;
+
+      > .MuiIconButton-root {
+        margin: 0px $base-margin * 5 0px $base-margin * 3;
+      }
+
+      .MuiIconButton-root {
+        padding: $base-padding;
+      }
+    }
+
+    &-input {
+      border-radius: 100px;
+      background-color: $white;
+    }
+  }
+
+  .message {
+    display: flex;
+
+    &-sent {
+      justify-content: flex-end;
+
+      &-content {
+        border-radius: 5px 0px 5px 5px;
+        background-color: $sent-message;
+
+        &::after {
+          right: -10px;
+          border-width: 0px 0 10px 10px;
+          border-color: transparent transparent transparent $sent-message;
+        }
+      }
+    }
+
+    &-received {
+      justify-content: flex-start;
+
+      &-content {
+        border-radius: 0px 5px 5px 5px;
+        background-color: $received-message;
+
+        &::after {
+          left: -10px;
+          border-width: 0px 10px 10px 0px;
+          border-color: transparent $received-message  transparent transparent;
+        }
+      }
+    }
+
+    &-content {
+      position: relative;
+      max-width: 85%;
+      padding: $base-padding * 2;
+      margin: $base-margin * 2 $base-margin * 3;
+
+      &::after {
+        position: absolute;
+        top: 0;
+        width: 0;
+        height: 0;
+        content: "";
+        border-style: solid;
+      }
+    }
+  }
+}
